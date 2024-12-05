@@ -95,15 +95,15 @@ def main():
     st.title('🔍 Bounding Box Koordinat & Analisis')
     
     # Sidebar untuk pengaturan
-    st.sidebar.header('Pengaturan Deteksi')
+    st.sidebar.header('Setting')
     min_box_size = st.sidebar.slider(
-        'Ukuran Minimum Bounding Box', 
+        'Minimum Bounding Box Size', 
         10, 200, 50
     )
     
     # Upload gambar
     uploaded_file = st.file_uploader(
-        "Unggah Gambar dengan Bounding Box", 
+        "Upload Picture", 
         type=['jpg', 'png', 'jpeg']
     )
     
@@ -117,7 +117,7 @@ def main():
         # Tampilkan gambar asli
         col1, col2 = st.columns(2)
         with col1:
-            st.subheader('Gambar Asli')
+            st.subheader('Real Picture')
             st.image(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         
         # Deteksi bounding box
@@ -134,7 +134,7 @@ def main():
         
         # Tampilkan hasil
         with col2:
-            st.subheader('Bounding Box Terdeteksi')
+            st.subheader('Bounding Box Detected')
             result_image = image.copy()
             for (x, y, w, h) in bounding_boxes:
                 cv2.rectangle(
@@ -151,10 +151,10 @@ def main():
         for i, analysis in enumerate(box_analysis, 1):
             with st.expander(f'Bounding Box {i}'):
                 coords = analysis['coordinates']
-                st.write(f"Koordinat: X={coords[0]}, Y={coords[1]}")
-                st.write(f"Lebar: {coords[2]}, Tinggi: {coords[3]}")
-                st.write(f"Warna Rata-rata: {analysis['avg_color']}")
-                st.write(f"Kontras: {analysis['contrast']:.2f}")
+                st.write(f"Coordinate: X={coords[0]}, Y={coords[1]}")
+                st.write(f"Wide: {coords[2]}, Height: {coords[3]}")
+                st.write(f"Avg_Color: {analysis['avg_color']}")
+                st.write(f"Contrast: {analysis['contrast']:.2f}")
 
 if __name__ == "__main__":
     main()
